@@ -11,7 +11,7 @@ function App() {
               <Avatar size="large" src={logo} />
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Moms memory site
+              Moms memory site (wip)
             </h1>
             <p className="mt-4 text-xl text-gray-500">place holder</p>
           </div>
