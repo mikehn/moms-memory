@@ -1,0 +1,11 @@
+{
+  "test": { "hello": "Hi" },
+  "component": {
+    "header": {
+      "lifeStory": "Life Story",
+      "obituaries": "Obituaries",
+      "Memories": "Memory Wall",
+      "Gallery": "Gallery"
+    }
+  }
+}

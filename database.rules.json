@@ -1,0 +1,10 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "_test": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}

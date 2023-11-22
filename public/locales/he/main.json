@@ -1,0 +1,11 @@
+{
+  "test": { "hello": "שלום" },
+  "component": {
+    "header": {
+      "lifeStory": "סיפור חיים",
+      "obituaries": "הספדים",
+      "Memories": "זכרונות",
+      "Gallery": "גלריה"
+    }
+  }
+}
