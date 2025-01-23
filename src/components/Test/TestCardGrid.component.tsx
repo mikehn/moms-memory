@@ -3,27 +3,15 @@ import { Card, CardContent } from '@/components/ui/card'
 
 interface CardGridProps {
   children: ReactNode
-  /** Optional class names to apply to the grid container */
   className?: string
-  /** Optional number of columns for different breakpoints */
-  columns?: {
-    small?: number
-    medium?: number
-    large?: number
-  }
 }
 
 const TestCardGrid: React.FC<CardGridProps> = ({
   children,
-  className = '',
-  columns = {
-    small: 1,
-    medium: 2,
-    large: 3
-  }
+  className = ''
 }) => {
   // Generate dynamic grid classes based on columns prop
-  const gridClasses = `grid grid-cols-${columns.small} md:grid-cols-${columns.medium} lg:grid-cols-${columns.large} gap-6`
+  const gridClasses = `flex flex-col gap-4`
 
   return (
     <div className="flex w-full items-center justify-center">
