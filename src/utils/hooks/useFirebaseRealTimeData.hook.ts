@@ -21,6 +21,7 @@ function useFirebaseRealtimeMultiple<T>(
     return () => {
       off(firebaseQuery, 'value', unsubscribe)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return data
@@ -35,9 +36,10 @@ function useFirebaseRealtimeValue<T>(firebaseQuery: Query): T | null {
     })
 
     return () => {
-      off(firebaseQuery, 'value', unsubscribe)
+      unsubscribe()
     }
-  }, [firebaseQuery])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return data
 }
