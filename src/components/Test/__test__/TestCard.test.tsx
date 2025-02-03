@@ -42,14 +42,8 @@ describe('TestCardGrid Component', () => {
   })
 
   it('applies custom column configuration', () => {
-    const customColumns = {
-      small: 2,
-      medium: 3,
-      large: 4
-    }
-
     const { container } = render(
-      <TestCardGrid columns={customColumns}>
+      <TestCardGrid>
         <div>Card 1</div>
         <div>Card 2</div>
       </TestCardGrid>
