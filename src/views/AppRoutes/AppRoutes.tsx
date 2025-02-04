@@ -6,6 +6,8 @@ import ProtectedRoute from './ProtectedRoute'
 import Landing from '../Landing/Landing.component'
 import Test from '@/views/Test/Test.view'
 import MainLayout from '../Layout/Main.layout'
+import MemoryWall from '../MemoryWall/MemoryWall.view'
+import { ObituariesPage } from '../Obituaries/Obituaries.view'
 
 export function withLayout(
   layout: JSX.Element,
@@ -43,10 +45,21 @@ const unprotectedRoutes: RouteObject = {
       element: <Landing />,
       errorElement: <MainErrorPage />
     },
+    {
+      path: RouteConsts.MEMORY_WALL,
+      element: <MemoryWall />,
+      errorElement: <MainErrorPage />
+    },
 
     {
       path: RouteConsts.TEST,
       element: <Test />,
+      errorElement: <MainErrorPage />
+    },
+
+    {
+      path: RouteConsts.OBITUARIES,
+      element: <ObituariesPage />,
       errorElement: <MainErrorPage />
     }
   ]

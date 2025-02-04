@@ -22,8 +22,8 @@ const NavigationMenu = ({ onItemClick }: { onItemClick?: () => void }) => {
 
   const menuItems = [
     { label: t(headerKeys.lifeStory), route: RouteConsts.LANDING },
-    { label: t(headerKeys.Memories), route: RouteConsts.LANDING },
-    { label: t(headerKeys.obituaries), route: RouteConsts.LANDING },
+    { label: t(headerKeys.Memories), route: RouteConsts.MEMORY_WALL },
+    { label: t(headerKeys.obituaries), route: RouteConsts.OBITUARIES },
     { label: t(headerKeys.Gallery), route: RouteConsts.LANDING }
   ]
 

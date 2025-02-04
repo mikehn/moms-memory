@@ -16,7 +16,9 @@ const RouteConsts = addBaseRoute({
   RECORD_SIMPLE: '/record/simple',
   EDIT_SINGLE: '/edit/:id',
   TEST: '/test',
-  TEST_PROTECTED: '/test-protected'
+  TEST_PROTECTED: '/test-protected',
+  MEMORY_WALL: '/memory-wall',
+  OBITUARIES: '/obituaries'
 })
 
 type SiteRoute = (typeof RouteConsts)[keyof typeof RouteConsts]
