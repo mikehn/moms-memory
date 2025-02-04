@@ -2,6 +2,12 @@
   "rules": {
     ".read": false,
     ".write": false,
+    "memory-wall": {
+      ".read": true,
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
     "_test": {
       ".read": true,
       ".write": true

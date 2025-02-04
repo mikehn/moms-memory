@@ -1,4 +1,4 @@
-type errorCodes = 'AUTH' | 'UNKNOWN'
+type errorCodes = 'AUTH' | 'UNKNOWN' | 'UPLOAD_FAIL' | 'DELETE_FAIL'
 
 export class AppError extends Error {
   code: string
