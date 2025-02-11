@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { generateUUID } from '../../utils/gen.utils'
 import { Obituary } from '../../types/components/Obituaries.type'
+import { detectLanguage } from '../../utils/lang.utils'
 
 export const ObituaryForm = ({
   onSubmit,
@@ -19,8 +19,8 @@ export const ObituaryForm = ({
   const handleFormSubmit = (data: Obituary) => {
     onSubmit({
       ...data,
-      id: generateUUID(),
-      datePosted: new Date()
+      lang: detectLanguage(data.description),
+      datePosted: new Date().toISOString()
     })
     reset()
   }

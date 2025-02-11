@@ -1,19 +1,13 @@
-import React, { useState } from 'react'
-import { Bell, Search, Settings, Menu } from 'lucide-react'
+import { useState } from 'react'
+import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
 import { Link } from 'react-router-dom'
 import { RouteConsts } from '../../utils/consts/Routes.consts'
 import { useTranslation } from 'react-i18next'
 import { i18nKeys } from '../../assets/i18n/keys'
 import { Drawer, DrawerTrigger, DrawerContent } from '@/components/ui/drawer'
-import { cn } from '../../utils/shadcn/utils'
+import LangSelector from '../LanguageSelector/LangSelector.component'
+import { ProfileButton } from './ProfileButton.component'
 
 // Reusable Navigation Menu Component
 const NavigationMenu = ({ onItemClick }: { onItemClick?: () => void }) => {
@@ -44,6 +38,7 @@ const NavigationMenu = ({ onItemClick }: { onItemClick?: () => void }) => {
 }
 
 const Header = ({ message }: { message: string }) => {
+  console.log(message) // TODO: needs to be removed (used for testing)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const closeDrawer = () => {
@@ -51,7 +46,7 @@ const Header = ({ message }: { message: string }) => {
   }
 
   return (
-    <header className="border-b">
+    <header className="border-b" dir="ltr">
       <div className="flex h-16 w-full items-center justify-between px-4">
         {/* Left section - Logo and Mobile Drawer */}
         <div className="flex items-center gap-6">
@@ -79,18 +74,16 @@ const Header = ({ message }: { message: string }) => {
 
         {/* Right Section - Search and Actions */}
         <div className="flex items-center gap-4">
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block">
             <div className="relative">
               <Search className="absolute left-2 top-2.5 size-4 text-muted-foreground" />
               <Input placeholder="Search..." className="w-[200px] pl-8" />
             </div>
-          </div>
+          </div> */}
 
-          <Button variant="ghost" size="icon">
-            <Bell className={cn('size-5', message && 'text-green-600')} />
-          </Button>
-
-          <DropdownMenu>
+          <LangSelector />
+          <ProfileButton />
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Settings className="size-5" />
@@ -101,7 +94,7 @@ const Header = ({ message }: { message: string }) => {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
         </div>
       </div>
     </header>

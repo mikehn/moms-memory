@@ -14,7 +14,7 @@ export const ObituaryCard = ({ data }: { data: Obituary }) => {
             {data.description}
           </p>
         </div>
-        <div className="mt-4 border-t border-gray-100 pt-3">
+        {/* <div className="mt-4 border-t border-gray-100 pt-3">
           <p className="text-xs text-gray-500">
             Shared on{' '}
             {new Date(data.datePosted).toLocaleDateString('en-US', {
@@ -23,7 +23,7 @@ export const ObituaryCard = ({ data }: { data: Obituary }) => {
               day: 'numeric'
             })}
           </p>
-        </div>
+        </div> */}
       </div>
     </Card>
   )

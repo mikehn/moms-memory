@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Edit, Trash } from 'lucide-react'
+import { Edit } from 'lucide-react'
 import ImageCarousel from '@/components/Utils/ImageCarousel.component'
 import { Memory } from '@/types/components/MemoryWall.type'
 import Show from '../Utils/Show.component'
@@ -52,7 +52,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({ memory, onEdit }) => {
               <Edit className="mr-2 size-4" />
               Edit
             </Button>
-            <Button
+            {/* <Button
               variant="outline"
               size="sm"
               onClick={onEdit}
@@ -60,9 +60,21 @@ const MemoryCard: React.FC<MemoryCardProps> = ({ memory, onEdit }) => {
             >
               <Trash className="mr-2 size-4" />
               Delete
-            </Button>
+            </Button> */}
           </div>
         </Show>
+        <div className="mt-4 border-t border-gray-100 pt-3">
+          <p className="text-xs text-gray-500">
+            Shared by {memory.author} on{' '}
+            {new Date(
+              new Date(memory.createdAt || Date.now())
+            ).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </p>
+        </div>
       </CardContent>
     </Card>
   )

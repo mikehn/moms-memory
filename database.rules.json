@@ -8,6 +8,12 @@
         ".write": "auth != null && auth.uid === $uid"
       }
     },
+      "obituaries": {
+      ".read": true,
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
     "_test": {
       ".read": true,
       ".write": true

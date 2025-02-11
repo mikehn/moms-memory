@@ -8,8 +8,13 @@ import {
   registerWithEmail,
   signInWithEmail
 } from '../../services/firebase/auth.service'
+import Show from '../Utils/Show.component'
 
-export const LoginCard: React.FC = () => {
+interface LoginCardProps {
+  onCanceled?: () => void
+}
+
+export const LoginCard: React.FC<LoginCardProps> = ({ onCanceled }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isRegistering, setIsRegistering] = useState(false)
@@ -17,9 +22,9 @@ export const LoginCard: React.FC = () => {
   const handleGoogleSignIn = async () => {
     const result = await signInWithGoogle()
     if (result) {
-      alert('Google Sign-In Successful!')
+      //alert('Google Sign-In Successful!')
     } else {
-      alert('Google Sign-In Failed.')
+      //alert('Google Sign-In Failed.')
     }
   }
 
@@ -38,7 +43,12 @@ export const LoginCard: React.FC = () => {
   }
 
   return (
-    <Card className="w-full max-w-md bg-white shadow-md">
+    <Card
+      className="w-full max-w-md bg-white shadow-md"
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
+    >
       <CardHeader>
         <CardTitle className="text-center text-2xl font-bold">
           {isRegistering ? 'Register' : 'Login'}
@@ -82,19 +92,44 @@ export const LoginCard: React.FC = () => {
         >
           {isRegistering ? 'Register' : 'Login'}
         </Button>
-
-        <p className="text-center text-sm">
-          {isRegistering
-            ? 'Already have an account?'
-            : "Don't have an account?"}{' '}
-          <span
-            onClick={() => setIsRegistering(!isRegistering)}
-            className="cursor-pointer text-blue-600 hover:underline"
-          >
-            {isRegistering ? 'Login' : 'Register'}
-          </span>
-        </p>
+        <Button
+          onClick={onCanceled}
+          className="w-full bg-red-500 text-white hover:bg-red-700"
+        >
+          Cancel
+        </Button>
+        <Show if={false}>
+          <p className="text-center text-sm">
+            {isRegistering
+              ? 'Already have an account?'
+              : "Don't have an account?"}{' '}
+            <span
+              onClick={() => setIsRegistering(!isRegistering)}
+              className="cursor-pointer text-blue-600 hover:underline"
+            >
+              {isRegistering ? 'Login' : 'Register'}
+            </span>
+          </p>
+        </Show>
       </CardContent>
     </Card>
   )
 }
+
+interface AuthModalProps {
+  isOpen: boolean
+}
+
+const AuthModal: React.FC<AuthModalProps> = ({ isOpen }) => {
+  if (!isOpen) return null
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
+      <div className="flex flex-col items-center space-y-2 rounded-lg bg-white/80 p-4 shadow-md">
+        <div>AAA</div>
+        <LoginCard />
+      </div>
+    </div>
+  )
+}
+
+export { AuthModal }

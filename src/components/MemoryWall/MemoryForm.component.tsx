@@ -27,6 +27,7 @@ export interface MemoryFormObject {
   text: string
   images?: MemoryImage[]
   uid: string
+  author: string
 }
 
 interface MemoryFormProps {
@@ -39,6 +40,7 @@ const MemoryForm: React.FC<MemoryFormProps> = ({ memory, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     title: memory?.title || '',
     text: memory?.text || '',
+    author: memory?.author || '',
     // For an existing memory, assume memory.images is an array of URLs.
     images: memory?.images
       ? memory.images.map((url) => ({ preview: url }))
@@ -116,6 +118,7 @@ const MemoryForm: React.FC<MemoryFormProps> = ({ memory, onClose, onSave }) => {
         title: formData.title,
         text: formData.text,
         images: formData.images,
+        author: formData.author,
         uid
       })
     } catch (uploadError) {
@@ -131,6 +134,15 @@ const MemoryForm: React.FC<MemoryFormProps> = ({ memory, onClose, onSave }) => {
           <DialogTitle>{memory ? 'Edit Memory' : 'Add a Memory'}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
+          {/* Name Field */}
+          <Input
+            type="text"
+            placeholder="Enter your name"
+            value={formData.author}
+            onChange={(e) =>
+              setFormData({ ...formData, author: e.target.value })
+            }
+          />
           {/* Title Field */}
           <Input
             type="text"

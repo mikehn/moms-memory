@@ -20,6 +20,10 @@ import {
   getNonIntersectingElements
 } from '../../utils/gen.utils'
 import PageLoading from '../../components/Utils/Loading.component'
+import TitleBar from '../../components/TitleBar/TitleBar.component'
+import { useTranslation } from 'react-i18next'
+import { i18nKeys } from '@/assets/i18n/keys'
+import { detectLanguage } from '../../utils/lang.utils'
 
 type MemoriesObject = Record<string, Record<string, FirebaseRtDbMemory>>
 
@@ -52,6 +56,7 @@ const MemoryWall: React.FC = () => {
   const [editingMemory, setEditingMemory] = useState<Memory | null>(null)
   const [isLoading, setLoading] = useState(false)
 
+  const { t } = useTranslation()
   useEffect(() => {
     console.log('memoryList', memoryList)
     setMemories(memoryList)
@@ -106,7 +111,7 @@ const MemoryWall: React.FC = () => {
 
   // Render function for each memory card
   const renderMemoryCard = ({ data }: { data: Memory }) => (
-    <div key={data?.id || 'none'} className="mb-4">
+    <div key={data?.id || 'none'} className="mb-4 w-full px-2 md:px-0">
       <MemoryCard
         memory={data}
         onEdit={currentUID === data.uid ? () => openDialog(data) : undefined}
@@ -115,48 +120,58 @@ const MemoryWall: React.FC = () => {
   )
 
   return (
-    <div className="relative min-h-screen bg-gray-50 p-6">
-      <PageLoading message={'Updating memories'} show={isLoading} />
-      <div className="container mx-auto">
-        <h1 className="mb-6 text-center text-3xl font-bold">Memory Wall</h1>
+    <>
+      <TitleBar
+        title={t(i18nKeys.page.memories.titleBar.title)}
+        subTitle={t(i18nKeys.page.memories.titleBar.subTitle)}
+      />
+      <div className="relative min-h-screen bg-gray-50">
+        <PageLoading message={'Updating memories'} show={isLoading} />
+        <div className="h-[calc(100vh-218px)]  w-full overflow-y-auto overflow-x-hidden px-0 py-8 scrollbar-thin scrollbar-track-slate-200 scrollbar-thumb-slate-400 md:px-4">
+          {/* Add Memory Button */}
+          <div className="mb-8 flex justify-center">
+            <Button
+              onClick={() => openDialog()}
+              className="flex items-center gap-2"
+            >
+              <PlusCircle className="size-5" />
+              Add a Memory
+            </Button>
+          </div>
 
-        {/* Add Memory Button */}
-        <div className="mb-8 flex justify-center">
-          <Button
-            onClick={() => openDialog()}
-            className="flex items-center gap-2"
-          >
-            <PlusCircle className="size-5" />
-            Add a Memory
-          </Button>
-        </div>
+          {/* Masonic Masonry Layout */}
+          <div className="container mx-auto max-w-screen-xl">
+            <div className="mx-auto hidden md:block">
+              {memories.length > 0 ? (
+                <Masonry
+                  maxColumnCount={3}
+                  items={memories}
+                  columnGutter={16} // Space between items
+                  columnWidth={320} // Minimum width for each column
+                  render={renderMemoryCard}
+                />
+              ) : (
+                <p className="text-center text-gray-500">
+                  No memories yet. Add one!
+                </p>
+              )}
+            </div>
+            <div className="mx-auto flex flex-col items-center md:hidden">
+              {memories.map((mem) => renderMemoryCard({ data: mem }))}
+            </div>
+          </div>
 
-        {/* Masonic Masonry Layout */}
-        <div className="masonry-container">
-          {memories.length > 0 ? (
-            <Masonry
-              items={memories}
-              columnGutter={16} // Space between items
-              columnWidth={300} // Minimum width for each column
-              render={renderMemoryCard}
+          {/* Memory Form Dialog */}
+          {isDialogOpen && (
+            <MemoryForm
+              memory={editingMemory || undefined}
+              onClose={closeDialog}
+              onSave={handleSaveMemory}
             />
-          ) : (
-            <p className="text-center text-gray-500">
-              No memories yet. Add one!
-            </p>
           )}
         </div>
-
-        {/* Memory Form Dialog */}
-        {isDialogOpen && (
-          <MemoryForm
-            memory={editingMemory || undefined}
-            onClose={closeDialog}
-            onSave={handleSaveMemory}
-          />
-        )}
       </div>
-    </div>
+    </>
   )
 }
 
@@ -169,10 +184,12 @@ function createMemWithLinks(
 ): Memory {
   return {
     text: memory.text,
+    author: memory.author,
     title: memory.title,
     uid: currentUID || '',
     id: memory.id,
-    images: imageLinks
+    images: imageLinks,
+    lang: detectLanguage(memory.text)
   }
 }
 

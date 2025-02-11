@@ -1,7 +1,11 @@
+import { Languages } from '../general.types'
+
 // types.ts
 export interface Obituary {
-  id: string
+  id?: number
   author: string
   description: string
-  datePosted: Date
+  datePosted: string
+  lang: Languages
+  translation?: Partial<Record<Languages, string>>
 }

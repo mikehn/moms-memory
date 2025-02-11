@@ -7,5 +7,19 @@
       "Memories": "זכרונות",
       "Gallery": "גלריה"
     }
+  },
+  "page": {
+    "memories": {
+      "titleBar": {
+        "title": "זכרונות",
+        "subTitle": "לעד בליבנו: שתפו זיכרונות"
+      }
+    },
+    "obituaries": {
+      "titleBar": {
+        "title": "הספדים",
+        "subTitle": "נזכור ונאהב"
+      }
+    }
   }
 }

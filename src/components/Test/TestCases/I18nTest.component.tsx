@@ -9,6 +9,7 @@ import {
 import { Globe, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../ui/button'
+import { languagesList } from '../../../utils/consts/lang.consts'
 
 const I18nTest = () => {
   const { t } = useTranslation()
@@ -28,10 +29,7 @@ const I18nTest = () => {
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation()
 
-  const languages = [
-    { code: 'en', label: 'English' },
-    { code: 'he', label: 'עברית' }
-  ]
+  const languages = languagesList
 
   const handleLanguageSelect = (langCode: string) => {
     i18n.changeLanguage(langCode)

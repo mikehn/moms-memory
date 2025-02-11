@@ -11,6 +11,9 @@ import {
 import { database } from './firebase.service'
 import { FirebaseRtSchema, FirebaseValidationSchema } from './firebase.config'
 import { Memory } from '../../types/components/MemoryWall.type'
+import { Obituary } from '../../types/components/Obituaries.type'
+import { getCurrentUID } from './auth.service'
+import { AppError } from '../../utils/error.utils'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const db = (link: string) => ref(database, link)
@@ -19,7 +22,9 @@ export const dbRef = {
   test: (valId?: string) => (valId ? db(`_test/${valId}`) : db(`_test`)),
   user: (uid: string, bookNum: number) => db(`user/${uid}/${bookNum}`),
   userMemoryCard: (uid: string, id: number) => db(`memory-wall/${uid}/${id}`),
-  allMemoryCards: () => db(`memory-wall`)
+  userObituary: (uid: string, id: number) => db(`obituaries/${uid}/${id}`),
+  allMemoryCards: () => db(`memory-wall`),
+  allObituaries: () => db(`obituaries`)
 }
 
 export const dbUpdate = {
@@ -36,14 +41,7 @@ export const dbUpdate = {
   test: async (values: Partial<FirebaseRtSchema['_test']>) => {
     await update(dbRef.test(), { ...values })
   },
-  memory: async (
-    // title: string,
-    // memory: string,
-    // images: string[],
-    // uid?: string,
-    // id?: number
-    memory: Memory
-  ) => {
+  memory: async (memory: Memory) => {
     if (!memory.uid) throw new Error('User is not authenticated.')
 
     const memoryData = {
@@ -65,6 +63,15 @@ export const dbUpdate = {
 
       await set(dbRef.userMemoryCard(memory.uid, newId), memoryData)
     }
+  },
+  obituary: async (obituary: Obituary) => {
+    const newId = Date.now()
+    const uid = getCurrentUID()
+    console.log('obituary:::::::', obituary)
+    if (!uid)
+      throw new AppError('Only logged in users can update obituaries', 'AUTH')
+    if (!obituary.id) obituary.id = newId
+    await set(dbRef.userObituary(uid, obituary.id), obituary)
   }
 }
 

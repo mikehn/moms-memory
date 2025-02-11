@@ -7,5 +7,19 @@
       "Memories": "Memory Wall",
       "Gallery": "Gallery"
     }
+  },
+  "page": {
+    "memories": {
+      "titleBar": {
+        "title": "Memory Wall",
+        "subTitle": "A Tapestry of Memories"
+      }
+    },
+    "obituaries": {
+      "titleBar": {
+        "title": "Obituaries",
+        "subTitle": "In Loving Memory of Emunah"
+      }
+    }
   }
 }
