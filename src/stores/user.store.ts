@@ -13,6 +13,7 @@ class UserStore {
 
   constructor(public root: RootStore) {
     makeAutoObservable(this)
+    this.initAuthListener()
   }
 
   getCurrentUUID() {
@@ -21,7 +22,7 @@ class UserStore {
 
   private initAuthListener() {
     const auth = getAuth()
-
+    this.uid = auth.currentUser?.uid || null
     onAuthStateChanged(auth, (user) => {
       this.user = user
       this.uid = user ? user.uid : null
